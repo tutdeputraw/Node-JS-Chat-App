@@ -40,15 +40,8 @@ exports.signIn = (req, res) => {
       }],
     }
   }).then(result => {
-    const token = uid(32);
     if (result != null) {
-      User.update({
-        token: token
-      }, {
-        where: {
-          id: result.id
-        }
-      });
+      const token = uid(32);
       res.status(200).json({
         message: 'Login Success',
         data: {
@@ -56,9 +49,36 @@ exports.signIn = (req, res) => {
           token: token
         }
       });
+      User.update({
+        token: token
+      }, {
+        where: {
+          id: result.id
+        }
+      });
     } else {
       res.status(404).json({
         message: 'Login Failed'
+      });
+    }
+  });
+};
+
+exports.signOut = (req, res) => {
+  User.update({
+    token: null
+  }, {
+    where: {
+      id: req.body.id
+    }
+  }).then(result => {
+    if (result == 1) {
+      res.status(404).json({
+        message: 'Sign out success!',
+      });
+    } else {
+      res.status(404).json({
+        message: 'Sign out failed!',
       });
     }
   });
