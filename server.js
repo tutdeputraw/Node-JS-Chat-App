@@ -1,8 +1,18 @@
 require('dotenv').config();
 const express = require('express');
+const database = require('./src/database/mysql');
 
 const app = express();
 
+require('./src/middleware/middleware')(app);
+
 require('./src/routes/routes')(app);
 
-app.listen(process.env.SERVER_PORT);
+database.sequelize
+  .sync()
+  .then(result => {
+    app.listen(process.env.SERVER_PORT);
+  })
+  .catch(err => {
+    console.log(err);
+  });
