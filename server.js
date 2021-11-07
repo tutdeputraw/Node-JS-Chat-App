@@ -9,7 +9,9 @@ require('./src/middleware/middleware')(app);
 require('./src/routes/routes')(app);
 
 database.sequelize
-  .sync()
+  .sync({
+    force: true
+  })
   .then(result => {
     app.listen(process.env.SERVER_PORT);
   })

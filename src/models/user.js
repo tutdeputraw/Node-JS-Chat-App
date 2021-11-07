@@ -23,6 +23,8 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: true
     },
   });
+  // User.hasMany(require('./post'));
+  // User.hasMany(require('./comment'));
 
   return User;
 }

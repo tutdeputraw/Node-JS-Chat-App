@@ -34,9 +34,9 @@ exports.signIn = (req, res) => {
   User.findOne({
     where: {
       [Op.and]: [{
-        email: req.body.email
+        email: req.params.email
       }, {
-        password: req.body.password
+        password: req.params.password
       }],
     }
   }).then(result => {
@@ -69,11 +69,11 @@ exports.signOut = (req, res) => {
     token: null
   }, {
     where: {
-      id: req.body.id
+      id: req.params.id
     }
   }).then(result => {
     if (result == 1) {
-      res.status(404).json({
+      res.status(200).json({
         message: 'Sign out success!',
       });
     } else {
