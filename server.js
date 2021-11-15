@@ -14,6 +14,7 @@ database.sequelize
   })
   .then(result => {
     app.listen(process.env.SERVER_PORT);
+    require('./socket');
   })
   .catch(err => {
     console.log(err);
