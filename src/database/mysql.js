@@ -3,26 +3,22 @@ const sequelize = require('../config/database.config').configSequelize(Sequelize
 
 
 const User = require('../models/user')(sequelize, Sequelize);
-const Post = require('../models/post')(sequelize, Sequelize);
-const Comment = require('../models/comment')(sequelize, Sequelize);
+const Friend = require('../models/friend')(sequelize, Sequelize);
 
 
-User.hasMany(Post);
-Post.belongsTo(User);
-
-User.hasMany(Comment);
-Comment.belongsTo(User);
-
-Post.hasMany(Comment);
-Comment.belongsTo(User);
+User.hasMany(Friend, {
+  as: "friends"
+});
+Friend.belongsTo(User, {
+  as: "user"
+});
 
 
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.user = User;
-db.post = Post;
-db.comment = Comment;
+db.friend = Friend;
 
 
 module.exports = db;

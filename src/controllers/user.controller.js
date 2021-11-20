@@ -83,3 +83,43 @@ exports.signOut = (req, res) => {
     }
   });
 };
+
+exports.search = async (req, res) => {
+  const keyword = req.query.search;
+  if (keyword == '') {
+    res.json([]);
+  } else {
+    const findKeyword = await User.findAll({
+      attributes: ['id', 'username']
+    }, {
+      where: {
+        [Op.and]: [{
+          username: {
+            [Op.like]: '%' + req.query.search + '%'
+          },
+          [Op.not]: [{
+            id: [req.query.id]
+          }]
+        }],
+      }
+    });
+
+    res.json(
+      findKeyword
+    );
+  }
+};
+
+exports.getFriends = async (req, res) => {
+  const friends = await User.findOne({
+    // attributes: ['friendId'],
+    where: {
+      id: {
+        [Op.eq]: req.query.id
+      }
+    },
+    include: ['friends']
+  });
+
+  res.status(200).json(friends);
+};
