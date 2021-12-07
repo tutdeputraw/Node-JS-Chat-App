@@ -6,5 +6,6 @@ router.post('/sign-up', controller.signUp);
 router.get('/sign-in/:email/:password', controller.signIn);
 router.get('/sign-out/:id', controller.signOut);
 router.get('/friends', controller.getFriends);
+router.get('/info', controller.getUserInfo);
 
 module.exports = router;

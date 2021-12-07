@@ -13,29 +13,28 @@ wss.on('connection', (ws, req) => {
 
   console.log('User ' + userID + ' Connected ');
 
-  ws.on('message', message => { //if there is any message
+  ws.on('message', message => {
     console.log(message);
     var datastring = message.toString();
     if (datastring.charAt(0) == "{") {
       datastring = datastring.replace(/\'/g, '"');
       var data = JSON.parse(datastring)
-      if (data.auth == "chatapphdfgjd34534hjdfk") {
-        if (data.cmd == 'send') {
-          var boardws = webSockets[data.userid] //check if there is reciever connection
-          if (boardws) {
-            var cdata = "{'cmd':'" + data.cmd + "','userid':'" + data.userid + "', 'msgtext':'" + data.msgtext + "'}";
-            boardws.send(cdata); //send message to reciever
-            ws.send(data.cmd + ":success");
-          } else {
-            console.log("No reciever user found.");
-            ws.send(data.cmd + ":error");
-          }
+
+      if (data.cmd == 'send') {
+        var sender = webSockets[data.senderId]; //check if there is reciever connection
+        var receiver = webSockets[data.receiverId];
+
+        if (receiver) {
+          var cdata = "{'cmd':'" + data.cmd + "','userid':'"+data.userid+"', 'msgtext':'"+data.msgtext+"'}";
+          // receiver.send(cdata);
+          receiver.send(datastring);
+          ws.send(data.cmd + ':success');
         } else {
-          console.log("No send command");
+          console.log("No reciever user found.");
           ws.send(data.cmd + ":error");
         }
       } else {
-        console.log("App Authincation error");
+        console.log("No send command");
         ws.send(data.cmd + ":error");
       }
     } else {

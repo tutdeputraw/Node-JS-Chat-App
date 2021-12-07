@@ -32,6 +32,10 @@ exports.addFriend = async (req, res) => {
     }
   });
 
+  res.status(201).json({
+    data: "created"
+  });
+
   if (createdA && createdB) {
     res.status(201).json({
       data: "created"

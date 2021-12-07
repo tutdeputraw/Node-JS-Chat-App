@@ -123,3 +123,16 @@ exports.getFriends = async (req, res) => {
 
   res.status(200).json(friends);
 };
+
+exports.getUserInfo = async (req, res) => {
+  const userInfo = await User.findOne({
+    attributes: ['username'],
+    where: {
+      id: {
+        [Op.eq]: req.query.id
+      }
+    }
+  });
+
+  res.status(200).json(userInfo);
+};
