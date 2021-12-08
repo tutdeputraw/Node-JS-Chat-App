@@ -14,6 +14,12 @@ Friend.belongsTo(User, {
   as: "user"
 });
 
+User.hasMany(Chat, {
+  as: "chats"
+});
+Chat.belongsTo(User, {
+  as: "user"
+});
 
 const db = {};
 db.Sequelize = Sequelize;

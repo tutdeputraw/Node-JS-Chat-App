@@ -6,10 +6,6 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       primaryKey: true
     },
-    senderId: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
     receiverId: {
       type: Sequelize.INTEGER,
       allowNull: true

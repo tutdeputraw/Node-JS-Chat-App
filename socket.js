@@ -26,7 +26,11 @@ wss.on('connection', (ws, req) => {
         var receiver = webSockets[data.receiverId];
 
 
-        // request('')
+        request.post('http://192.168.0.7:3000/chat/store').form({
+          userId: data.senderId,
+          receiverId: data.receiverId,
+          message: data.text,
+        });
 
 
         if (receiver) {
