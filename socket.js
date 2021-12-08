@@ -1,4 +1,5 @@
 const WebSocket = require('ws');
+const request = require('request');
 
 var webSockets = {};
 
@@ -14,19 +15,22 @@ wss.on('connection', (ws, req) => {
   console.log('User ' + userID + ' Connected ');
 
   ws.on('message', message => {
-    console.log(message);
     var datastring = message.toString();
     if (datastring.charAt(0) == "{") {
       datastring = datastring.replace(/\'/g, '"');
       var data = JSON.parse(datastring)
 
       if (data.cmd == 'send') {
-        var sender = webSockets[data.senderId]; //check if there is reciever connection
+        console.log('message: ' + message);
+        var sender = webSockets[data.senderId];
         var receiver = webSockets[data.receiverId];
 
+
+        // request('')
+
+
         if (receiver) {
-          var cdata = "{'cmd':'" + data.cmd + "','userid':'"+data.userid+"', 'msgtext':'"+data.msgtext+"'}";
-          // receiver.send(cdata);
+          console.log('datastring: ' + datastring);
           receiver.send(datastring);
           ws.send(data.cmd + ':success');
         } else {

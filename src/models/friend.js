@@ -10,6 +10,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       allowNull: true
     },
+    friendId: {
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
   });
 
   return Friend;

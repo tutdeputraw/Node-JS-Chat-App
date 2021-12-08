@@ -6,10 +6,17 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       primaryKey: true
     },
-    sender: {
+    senderId: {
       type: Sequelize.INTEGER,
       allowNull: true
     },
+    receiverId: {
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
+    message: {
+      type: Sequelize.TEXT
+    }
   });
 
   return Chat;
