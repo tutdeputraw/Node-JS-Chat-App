@@ -22,6 +22,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       allowNull: true
     },
+    imageUrl: {
+      type: Sequelize.STRING,
+    }
   });
   // User.hasMany(require('./post'));
   // User.hasMany(require('./comment'));

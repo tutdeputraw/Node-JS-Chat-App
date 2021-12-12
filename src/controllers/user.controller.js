@@ -2,6 +2,10 @@ const User = require('../database/mysql').user;
 const Op = require("sequelize").Op;
 var uid = require('rand-token').uid;
 
+var getRandomInt = max => {
+  return Math.floor(Math.random() * max);
+}
+
 exports.signUp = (req, res) => {
   User.count({
     where: {
@@ -17,6 +21,7 @@ exports.signUp = (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
+        imageUrl: 'https://picsum.photos/250?image=' + getRandomInt(1000)
       }).then(result => {
         res.status(201).json({
           message: 'User created successfully!',
@@ -126,7 +131,7 @@ exports.getFriends = async (req, res) => {
 
 exports.getUserInfo = async (req, res) => {
   const userInfo = await User.findOne({
-    attributes: ['username'],
+    attributes: ['username', 'imageUrl'],
     where: {
       id: {
         [Op.eq]: req.query.id

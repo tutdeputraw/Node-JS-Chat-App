@@ -56,7 +56,7 @@ exports.getFriends = async (req, res) => {
     include: {
       model: User,
       as: 'user',
-      attributes: ['id', 'username'],
+      attributes: ['id', 'username', 'imageUrl'],
     },
   });
 

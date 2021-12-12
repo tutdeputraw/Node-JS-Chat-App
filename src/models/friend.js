@@ -6,10 +6,10 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       primaryKey: true
     },
-    userId: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
+    // userId: {
+    //   type: Sequelize.INTEGER,
+    //   allowNull: true
+    // },
     friendId: {
       type: Sequelize.INTEGER,
       allowNull: true
